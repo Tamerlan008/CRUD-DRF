@@ -1,7 +1,10 @@
-from django.urls import path
-from .views import BookListCreateAPIView, BookRetrieveUpdateDestroyAPIView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ProductAPI
+
+router = DefaultRouter()
+router.register(r'products', ProductAPI, basename='product')
 
 urlpatterns = [
-    path('books/', BookListCreateAPIView.as_view(), name='book-list-create'),
-    path('books/<int:pk>/', BookRetrieveUpdateDestroyAPIView.as_view(), name='book-detail'),
+    path('', include(router.urls)),
 ]

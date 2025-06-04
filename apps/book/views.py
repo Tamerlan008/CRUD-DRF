@@ -1,11 +1,14 @@
-from rest_framework import generics
-from .models import Book
-from .serializers import BookSerializer
+from rest_framework import viewsets, mixins
+from .models import Product
+from .serializers import ProductSerializer
 
-class BookListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-
-class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
+class ProductAPI(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet
+):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
